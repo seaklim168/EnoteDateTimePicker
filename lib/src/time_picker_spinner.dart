@@ -1,3 +1,5 @@
+import 'package:enote_datetime_picker/src/flutter_switch.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
@@ -127,14 +129,16 @@ class _TimePickerSpinnerState extends State<TimePickerSpinner> {
   bool isSecondsScrolling = false;
   bool isAPScrolling = false;
 
+  bool _12AmClock = true;
+
   /// default settings
   TextStyle defaultHighlightTextStyle =
-      const TextStyle(fontSize: 32, color: Colors.black);
+      const TextStyle(fontSize: 22, color: Colors.black);
   TextStyle defaultNormalTextStyle =
       const TextStyle(fontSize: 32, color: Colors.black54);
-  double defaultItemHeight = 60;
-  double defaultItemWidth = 45;
-  double defaultSpacing = 20;
+  double defaultItemHeight = 35;
+  double defaultItemWidth = 75;
+  double defaultSpacing = 16;
   AlignmentGeometry defaultAlignment = Alignment.center;
 
   /// getter
@@ -244,6 +248,7 @@ class _TimePickerSpinnerState extends State<TimePickerSpinner> {
           isHourScrolling,
           1,
           (index) {
+            print(index);
             currentSelectedHourIndex = index;
             isHourScrolling = true;
           },
@@ -273,7 +278,7 @@ class _TimePickerSpinnerState extends State<TimePickerSpinner> {
       contents.add(spacer());
       contents.add(SizedBox(
         width: _getItemWidth(),
-        height: _getItemHeight()! * 3,
+        // height: _getItemHeight()! * 1,
         child: spinner(
           secondController,
           _getSecondCount(),
@@ -289,26 +294,56 @@ class _TimePickerSpinnerState extends State<TimePickerSpinner> {
       ));
     }
 
-    if (!widget.is24HourMode) {
-      contents.add(spacer());
-      contents.add(SizedBox(
-        width: _getItemWidth()! * 1.2,
-        height: _getItemHeight()! * 3,
-        child: apSpinner(),
-      ));
-    }
-
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: contents,
+    return Container(
+      padding: const EdgeInsets.only(right: 8.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8.0),
+              color: const Color.fromRGBO(118, 118, 128, 0.12),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: contents,
+            ),
+          ),
+          if (!widget.is24HourMode)
+            Padding(
+              padding: const EdgeInsets.only(left: 16),
+              child: FlutterSwitch(
+                width: 100.0,
+                height: 40.0,
+                value: _12AmClock,
+                borderRadius: 8.0,
+                padding: 4.0,
+                showOnOff: true,
+                activeColor: const Color.fromRGBO(118, 118, 128, 0.12),
+                activeTextFontWeight: FontWeight.w500,
+                inactiveColor: const Color.fromRGBO(118, 118, 128, 0.12),
+                inactiveTextFontWeight: FontWeight.w500,
+                valueFontSize: 13,
+                activeTextColor: Colors.black,
+                inactiveTextColor: Colors.black,
+                activeText: 'AM',
+                inactiveText: 'PM',
+                onToggle: (val) {
+                  setState(() {
+                    _12AmClock = val;
+                  });
+                },
+              ),
+            )
+        ],
+      ),
     );
   }
 
   Widget spacer() {
-    return SizedBox(
-      width: _getSpacing(),
-      height: _getItemHeight()! * 3,
+    return const SizedBox(
+      child: Center(child: Text(":  ")),
     );
   }
 

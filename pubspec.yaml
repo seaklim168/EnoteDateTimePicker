@@ -1,16 +1,18 @@
-name: omni_datetime_picker
+name: enote_datetime_picker
 description: A datetime picker package with option to use a single datetime picker or a datetime range picker.
 version: 0.1.2
 repository: "https://github.com/Type0N1/OmniDateTimePicker"
 homepage: "https://type0n1.com"
 
 environment:
-  sdk: ">=2.14.0 <3.0.0"
+  sdk: ">=2.17.6 <3.0.0"
   flutter: ">=2.5.3"
 
 dependencies:
   flutter:
     sdk: flutter
+  calendar_date_picker2: ^0.2.5
+
 
 dev_dependencies:
   flutter_test:

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:omni_datetime_picker/omni_datetime_picker.dart';
+import 'package:enote_datetime_picker/omni_datetime_picker.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
