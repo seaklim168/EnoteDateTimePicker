@@ -25,7 +25,7 @@ class OmniDateTimePicker extends StatefulWidget {
   /// Default value: DateTime.now().add(const Duration(days: 3652))
   final DateTime? startLastDate;
 
-  final OmniDateTimePickerType type;
+  final EnoteDateTimePickerType type;
   final bool? is24HourMode;
   final bool? isShowSeconds;
 
@@ -166,10 +166,10 @@ class _OmniDateTimePickerState extends State<OmniDateTimePicker>
                           dateTime.year,
                           dateTime.month,
                           dateTime.day,
-                          widget.type == OmniDateTimePickerType.date
+                          widget.type == EnoteDateTimePickerType.date
                               ? 0
                               : startDateTime.hour,
-                          widget.type == OmniDateTimePickerType.date
+                          widget.type == EnoteDateTimePickerType.date
                               ? 0
                               : startDateTime.minute,
                         );
@@ -195,7 +195,8 @@ class _OmniDateTimePickerState extends State<OmniDateTimePicker>
                         ],
                       ),
                     ),
-                    widget.type == OmniDateTimePickerType.dateAndTime && _timeOn
+                    widget.type == EnoteDateTimePickerType.dateAndTime &&
+                            _timeOn
                         ? Padding(
                             padding: const EdgeInsets.only(bottom: 16.0),
                             child: TimePickerSpinner(

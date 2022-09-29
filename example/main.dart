@@ -21,7 +21,7 @@ class _MyAppState extends State<MyApp> {
               ElevatedButton(
                 onPressed: () async {
                   DateTime? dateTime =
-                      await showOmniDateTimePicker(context: context);
+                      await showEnoteDateTimePicker(context: context);
                 },
                 child: const Text("Show DateTime Picker"),
               ),
@@ -64,7 +64,7 @@ class _MyAppState extends State<MyApp> {
                   List<DateTime>? dateTimeList =
                       await showOmniDateTimeRangePicker(
                     context: context,
-                    type: OmniDateTimePickerType.date,
+                    type: EnoteDateTimePickerType.date,
                     primaryColor: Colors.cyan,
                     backgroundColor: Colors.grey[900],
                     calendarTextColor: Colors.white,

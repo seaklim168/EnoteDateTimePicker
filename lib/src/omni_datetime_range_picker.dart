@@ -37,7 +37,7 @@ class OmniDateTimeRangePicker extends StatefulWidget {
   /// Default value: DateTime.now().add(const Duration(days: 3652))
   final DateTime? endLastDate;
 
-  final OmniDateTimePickerType type;
+  final EnoteDateTimePickerType type;
   final bool? is24HourMode;
   final bool? isShowSeconds;
 
@@ -186,9 +186,10 @@ class _OmniDateTimeRangePickerState extends State<OmniDateTimeRangePicker>
               ),
               Container(
                 constraints: BoxConstraints(
-                    maxHeight: widget.type == OmniDateTimePickerType.dateAndTime
-                        ? MediaQuery.of(context).size.height - 200
-                        : MediaQuery.of(context).size.height - 320),
+                    maxHeight:
+                        widget.type == EnoteDateTimePickerType.dateAndTime
+                            ? MediaQuery.of(context).size.height - 200
+                            : MediaQuery.of(context).size.height - 320),
                 decoration: BoxDecoration(
                   color: widget.backgroundColor ?? Colors.white,
                 ),
@@ -214,16 +215,16 @@ class _OmniDateTimeRangePickerState extends State<OmniDateTimeRangePicker>
                                 dateTime.year,
                                 dateTime.month,
                                 dateTime.day,
-                                widget.type == OmniDateTimePickerType.date
+                                widget.type == EnoteDateTimePickerType.date
                                     ? 0
                                     : startDateTime.hour,
-                                widget.type == OmniDateTimePickerType.date
+                                widget.type == EnoteDateTimePickerType.date
                                     ? 0
                                     : startDateTime.minute,
                               );
                             },
                           ),
-                          widget.type == OmniDateTimePickerType.dateAndTime
+                          widget.type == EnoteDateTimePickerType.dateAndTime
                               ? Wrap(
                                   children: [
                                     TimePickerSpinner(
@@ -282,16 +283,16 @@ class _OmniDateTimeRangePickerState extends State<OmniDateTimeRangePicker>
                                 dateTime.year,
                                 dateTime.month,
                                 dateTime.day,
-                                widget.type == OmniDateTimePickerType.date
+                                widget.type == EnoteDateTimePickerType.date
                                     ? 23
                                     : startDateTime.hour,
-                                widget.type == OmniDateTimePickerType.date
+                                widget.type == EnoteDateTimePickerType.date
                                     ? 59
                                     : startDateTime.minute,
                               );
                             },
                           ),
-                          widget.type == OmniDateTimePickerType.dateAndTime
+                          widget.type == EnoteDateTimePickerType.dateAndTime
                               ? TimePickerSpinner(
                                   is24HourMode: widget.is24HourMode ?? false,
                                   isShowSeconds: widget.isShowSeconds ?? false,

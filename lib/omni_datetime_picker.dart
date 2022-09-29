@@ -1,6 +1,6 @@
 /// A DateTime picker to pick a single DateTime or a DateTime range.
 ///
-/// Use [showOmniDateTimePicker] to pick a single DateTime.
+/// Use [showEnoteDateTimePicker] to pick a single DateTime.
 ///
 /// Use [showOmniDateTimeRangePicker] to pick a DateTime range.
 ///
@@ -15,12 +15,12 @@ import 'src/omni_datetime_range_picker.dart';
 ///
 /// Returns a List<DateTime> with startDateTime & endDateTime
 ///
-Future<DateTime?> showOmniDateTimePicker({
+Future<DateTime?> showEnoteDateTimePicker({
   required BuildContext context,
   DateTime? startInitialDate,
   DateTime? startFirstDate,
   DateTime? startLastDate,
-  OmniDateTimePickerType type = OmniDateTimePickerType.dateAndTime,
+  EnoteDateTimePickerType type = EnoteDateTimePickerType.dateAndTime,
   bool? is24HourMode,
   bool? isShowSeconds,
   Color? primaryColor,
@@ -69,7 +69,7 @@ Future<List<DateTime>?> showOmniDateTimeRangePicker({
   DateTime? endInitialDate,
   DateTime? endFirstDate,
   DateTime? endLastDate,
-  OmniDateTimePickerType type = OmniDateTimePickerType.dateAndTime,
+  EnoteDateTimePickerType type = EnoteDateTimePickerType.dateAndTime,
   bool? is24HourMode,
   bool? isShowSeconds,
   Color? primaryColor,
@@ -110,7 +110,7 @@ Future<List<DateTime>?> showOmniDateTimeRangePicker({
 }
 
 /// Type of the [OmniDateTimePicker]
-enum OmniDateTimePickerType {
+enum EnoteDateTimePickerType {
   date,
   dateAndTime,
 }
