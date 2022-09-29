@@ -73,7 +73,7 @@ class _OmniDateTimePickerState extends State<OmniDateTimePicker>
 
   bool _timeOn = false;
 
-  TextStyle dayTextStyle = TextStyle(fontSize: 19);
+  TextStyle dayTextStyle = const TextStyle(fontSize: 19);
 
   @override
   void initState() {
@@ -106,9 +106,6 @@ class _OmniDateTimePickerState extends State<OmniDateTimePicker>
               foregroundColor: Colors.red, // button text color
             ),
           ),
-          textTheme: Theme.of(context).textTheme.copyWith(
-                headline1: TextStyle(),
-              ),
         ),
         child: SingleChildScrollView(
           child: Column(
@@ -134,31 +131,32 @@ class _OmniDateTimePickerState extends State<OmniDateTimePicker>
                   children: [
                     CalendarDatePicker2(
                       config: CalendarDatePicker2Config(
-                          dayTextStyle: dayTextStyle,
-                          todayTextStyle:
-                              dayTextStyle.copyWith(color: Colors.blue),
-                          selectedDayTextStyle: dayTextStyle.copyWith(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 24,
-                            color: Colors.blue,
-                          ),
-                          controlsTextStyle: dayTextStyle.copyWith(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          nextMonthIcon:
-                              Icon(Icons.chevron_right, color: Colors.blue),
-                          lastMonthIcon:
-                              Icon(Icons.chevron_left, color: Colors.blue),
-                          weekdayLabels: [
-                            'SUN',
-                            'MON',
-                            'TUE',
-                            'WEN',
-                            'THU',
-                            'FRI',
-                            'SAT'
-                          ]),
+                        dayTextStyle: dayTextStyle,
+                        todayTextStyle:
+                            dayTextStyle.copyWith(color: Colors.blue),
+                        selectedDayTextStyle: dayTextStyle.copyWith(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 24,
+                          color: Colors.blue,
+                        ),
+                        controlsTextStyle: dayTextStyle.copyWith(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        nextMonthIcon:
+                            const Icon(Icons.chevron_right, color: Colors.blue),
+                        lastMonthIcon:
+                            const Icon(Icons.chevron_left, color: Colors.blue),
+                        weekdayLabels: [
+                          'SUN',
+                          'MON',
+                          'TUE',
+                          'WEN',
+                          'THU',
+                          'FRI',
+                          'SAT'
+                        ],
+                      ),
                       initialValue: [DateTime.now()],
                       onValueChanged: (dates) {
                         var dateTime = dates[0]!;
@@ -232,66 +230,68 @@ class _OmniDateTimePickerState extends State<OmniDateTimePicker>
                   ],
                 ),
               ),
-              // Container(
-              //   decoration: BoxDecoration(
-              //     color: widget.backgroundColor ?? Colors.white,
-              //     borderRadius: BorderRadius.only(
-              //       bottomLeft:
-              //           widget.borderRadius ?? const Radius.circular(16),
-              //       bottomRight:
-              //           widget.borderRadius ?? const Radius.circular(16),
-              //     ),
-              //   ),
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //     mainAxisSize: MainAxisSize.max,
-              //     children: [
-              //       Expanded(
-              //         child: TextButton(
-              //           style: ButtonStyle(
-              //             backgroundColor:
-              //                 MaterialStateProperty.all(widget.backgroundColor),
-              //           ),
-              //           onPressed: () {
-              //             Navigator.of(context).pop<DateTime>();
-              //           },
-              //           child: Text(
-              //             // "Cancel",
-              //             _localizations.cancelButtonLabel,
-              //             style: TextStyle(
-              //                 color: widget.buttonTextColor ?? Colors.black),
-              //           ),
-              //         ),
-              //       ),
-              //       const SizedBox(
-              //         height: 20,
-              //         child: VerticalDivider(
-              //           color: Colors.grey,
-              //         ),
-              //       ),
-              //       Expanded(
-              //         child: TextButton(
-              //           style: ButtonStyle(
-              //             backgroundColor:
-              //                 MaterialStateProperty.all(widget.backgroundColor),
-              //           ),
-              //           onPressed: () {
-              //             Navigator.pop<DateTime>(
-              //               context,
-              //               startDateTime,
-              //             );
-              //           },
-              //           child: Text(
-              //             // "Save",
-              //             _localizations.saveButtonLabel,
-              //             style: TextStyle(
-              //                 color: widget.buttonTextColor ?? Colors.black),
-              //           ),
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
+
+              /// Cancel button
+              Container(
+                decoration: BoxDecoration(
+                  color: widget.backgroundColor ?? Colors.white,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft:
+                        widget.borderRadius ?? const Radius.circular(16),
+                    bottomRight:
+                        widget.borderRadius ?? const Radius.circular(16),
+                  ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Expanded(
+                      child: TextButton(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(widget.backgroundColor),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop<DateTime>();
+                        },
+                        child: Text(
+                          // "Cancel",
+                          _localizations.cancelButtonLabel,
+                          style: TextStyle(
+                              color: widget.buttonTextColor ?? Colors.black),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                      child: VerticalDivider(
+                        color: Colors.grey,
+                      ),
+                    ),
+                    Expanded(
+                      child: TextButton(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(widget.backgroundColor),
+                        ),
+                        onPressed: () {
+                          Navigator.pop<DateTime>(
+                            context,
+                            startDateTime,
+                          );
+                        },
+                        child: Text(
+                          // "Save",
+                          _localizations.saveButtonLabel,
+                          style: TextStyle(
+                              color: widget.buttonTextColor ?? Colors.black),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
