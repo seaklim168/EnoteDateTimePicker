@@ -248,7 +248,6 @@ class _TimePickerSpinnerState extends State<TimePickerSpinner> {
           isHourScrolling,
           1,
           (index) {
-            print(index);
             currentSelectedHourIndex = index;
             isHourScrolling = true;
           },
@@ -300,15 +299,9 @@ class _TimePickerSpinnerState extends State<TimePickerSpinner> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8.0),
-              color: const Color.fromRGBO(118, 118, 128, 0.12),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: contents,
-            ),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: contents,
           ),
           if (!widget.is24HourMode)
             Padding(

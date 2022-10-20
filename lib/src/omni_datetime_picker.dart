@@ -38,6 +38,7 @@ class OmniDateTimePicker extends StatefulWidget {
   final TextStyle? timeSpinnerTextStyle;
   final TextStyle? timeSpinnerHighlightedTextStyle;
   final Radius? borderRadius;
+  final ValueChanged<DateTime>? onValueChange;
 
   const OmniDateTimePicker({
     Key? key,
@@ -56,6 +57,7 @@ class OmniDateTimePicker extends StatefulWidget {
     this.timeSpinnerTextStyle,
     this.timeSpinnerHighlightedTextStyle,
     this.borderRadius,
+    this.onValueChange,
   }) : super(key: key);
 
   @override
@@ -171,12 +173,15 @@ class _OmniDateTimePickerState extends State<OmniDateTimePicker>
                               ? 0
                               : startDateTime.minute,
                         );
+                        if (widget.onValueChange != null) {
+                          widget.onValueChange!(startDateTime);
+                        }
                       },
                     ),
                     const Divider(),
                     Padding(
-                      padding: const EdgeInsets.only(
-                          left: 16, top: 16, bottom: 23, right: 8),
+                      padding:
+                          const EdgeInsets.only(left: 16, top: 16, right: 8),
                       child: Row(
                         children: [
                           const Text('Time',
@@ -227,71 +232,72 @@ class _OmniDateTimePickerState extends State<OmniDateTimePicker>
                             ),
                           )
                         : Container(),
+                    const SizedBox(height: 16)
                   ],
                 ),
               ),
 
               /// Cancel button
-              Container(
-                decoration: BoxDecoration(
-                  color: widget.backgroundColor ?? Colors.white,
-                  borderRadius: BorderRadius.only(
-                    bottomLeft:
-                        widget.borderRadius ?? const Radius.circular(16),
-                    bottomRight:
-                        widget.borderRadius ?? const Radius.circular(16),
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Expanded(
-                      child: TextButton(
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(widget.backgroundColor),
-                        ),
-                        onPressed: () {
-                          Navigator.of(context).pop<DateTime>();
-                        },
-                        child: Text(
-                          // "Cancel",
-                          _localizations.cancelButtonLabel,
-                          style: TextStyle(
-                              color: widget.buttonTextColor ?? Colors.black),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                      child: VerticalDivider(
-                        color: Colors.grey,
-                      ),
-                    ),
-                    Expanded(
-                      child: TextButton(
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(widget.backgroundColor),
-                        ),
-                        onPressed: () {
-                          Navigator.pop<DateTime>(
-                            context,
-                            startDateTime,
-                          );
-                        },
-                        child: Text(
-                          // "Save",
-                          _localizations.saveButtonLabel,
-                          style: TextStyle(
-                              color: widget.buttonTextColor ?? Colors.black),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              // Container(
+              //   decoration: BoxDecoration(
+              //     color: widget.backgroundColor ?? Colors.white,
+              //     borderRadius: BorderRadius.only(
+              //       bottomLeft:
+              //           widget.borderRadius ?? const Radius.circular(16),
+              //       bottomRight:
+              //           widget.borderRadius ?? const Radius.circular(16),
+              //     ),
+              //   ),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //     mainAxisSize: MainAxisSize.max,
+              //     children: [
+              //       Expanded(
+              //         child: TextButton(
+              //           style: ButtonStyle(
+              //             backgroundColor:
+              //                 MaterialStateProperty.all(widget.backgroundColor),
+              //           ),
+              //           onPressed: () {
+              //             Navigator.of(context).pop<DateTime>();
+              //           },
+              //           child: Text(
+              //             // "Cancel",
+              //             _localizations.cancelButtonLabel,
+              //             style: TextStyle(
+              //                 color: widget.buttonTextColor ?? Colors.black),
+              //           ),
+              //         ),
+              //       ),
+              //       const SizedBox(
+              //         height: 20,
+              //         child: VerticalDivider(
+              //           color: Colors.grey,
+              //         ),
+              //       ),
+              //       Expanded(
+              //         child: TextButton(
+              //           style: ButtonStyle(
+              //             backgroundColor:
+              //                 MaterialStateProperty.all(widget.backgroundColor),
+              //           ),
+              //           onPressed: () {
+              //             Navigator.pop<DateTime>(
+              //               context,
+              //               startDateTime,
+              //             );
+              //           },
+              //           child: Text(
+              //             // "Save",
+              //             _localizations.saveButtonLabel,
+              //             style: TextStyle(
+              //                 color: widget.buttonTextColor ?? Colors.black),
+              //           ),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
             ],
           ),
         ),
