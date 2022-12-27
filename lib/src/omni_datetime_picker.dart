@@ -39,6 +39,7 @@ class OmniDateTimePicker extends StatefulWidget {
   final TextStyle? timeSpinnerHighlightedTextStyle;
   final Radius? borderRadius;
   final ValueChanged<DateTime>? onValueChange;
+  final bool? isShowTime;
 
   const OmniDateTimePicker({
     Key? key,
@@ -58,14 +59,14 @@ class OmniDateTimePicker extends StatefulWidget {
     this.timeSpinnerHighlightedTextStyle,
     this.borderRadius,
     this.onValueChange,
+    this.isShowTime = false,
   }) : super(key: key);
 
   @override
   State<OmniDateTimePicker> createState() => _OmniDateTimePickerState();
 }
 
-class _OmniDateTimePickerState extends State<OmniDateTimePicker>
-    with SingleTickerProviderStateMixin {
+class _OmniDateTimePickerState extends State<OmniDateTimePicker> with SingleTickerProviderStateMixin {
   /// startDateTime will be returned after clicking Done
   ///
   /// Initial value: Current DateTime
@@ -82,6 +83,9 @@ class _OmniDateTimePickerState extends State<OmniDateTimePicker>
     if (widget.startInitialDate != null) {
       startDateTime = widget.startInitialDate!;
     }
+
+    _timeOn = widget.isShowTime!;
+
     super.initState();
   }
 
@@ -114,17 +118,14 @@ class _OmniDateTimePickerState extends State<OmniDateTimePicker>
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                constraints: BoxConstraints(
-                    maxHeight: MediaQuery.of(context).size.height - 120),
+                constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height - 120),
                 decoration: BoxDecoration(
                   color: widget.backgroundColor ?? Colors.white,
                   borderRadius: BorderRadius.only(
                     topLeft: widget.borderRadius ?? const Radius.circular(16),
                     topRight: widget.borderRadius ?? const Radius.circular(16),
-                    bottomLeft:
-                        widget.borderRadius ?? const Radius.circular(16),
-                    bottomRight:
-                        widget.borderRadius ?? const Radius.circular(16),
+                    // bottomLeft: widget.borderRadius ?? const Radius.circular(16),
+                    // bottomRight: widget.borderRadius ?? const Radius.circular(16),
                   ),
                 ),
                 child: Column(
@@ -134,8 +135,7 @@ class _OmniDateTimePickerState extends State<OmniDateTimePicker>
                     CalendarDatePicker2(
                       config: CalendarDatePicker2Config(
                         dayTextStyle: dayTextStyle,
-                        todayTextStyle:
-                            dayTextStyle.copyWith(color: Colors.blue),
+                        todayTextStyle: dayTextStyle.copyWith(color: Colors.blue),
                         selectedDayTextStyle: dayTextStyle.copyWith(
                           fontWeight: FontWeight.w600,
                           fontSize: 24,
@@ -145,33 +145,19 @@ class _OmniDateTimePickerState extends State<OmniDateTimePicker>
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
                         ),
-                        nextMonthIcon:
-                            const Icon(Icons.chevron_right, color: Colors.blue),
-                        lastMonthIcon:
-                            const Icon(Icons.chevron_left, color: Colors.blue),
-                        weekdayLabels: [
-                          'SUN',
-                          'MON',
-                          'TUE',
-                          'WEN',
-                          'THU',
-                          'FRI',
-                          'SAT'
-                        ],
+                        nextMonthIcon: const Icon(Icons.chevron_right, color: Colors.blue),
+                        lastMonthIcon: const Icon(Icons.chevron_left, color: Colors.blue),
+                        weekdayLabels: ['SUN', 'MON', 'TUE', 'WEN', 'THU', 'FRI', 'SAT'],
                       ),
-                      initialValue: [DateTime.now()],
+                      initialValue: [startDateTime],
                       onValueChanged: (dates) {
                         var dateTime = dates[0]!;
                         startDateTime = DateTime(
                           dateTime.year,
                           dateTime.month,
                           dateTime.day,
-                          widget.type == EnoteDateTimePickerType.date
-                              ? 0
-                              : startDateTime.hour,
-                          widget.type == EnoteDateTimePickerType.date
-                              ? 0
-                              : startDateTime.minute,
+                          widget.type == EnoteDateTimePickerType.date ? 0 : startDateTime.hour,
+                          widget.type == EnoteDateTimePickerType.date ? 0 : startDateTime.minute,
                         );
                         if (widget.onValueChange != null) {
                           widget.onValueChange!(startDateTime);
@@ -180,13 +166,10 @@ class _OmniDateTimePickerState extends State<OmniDateTimePicker>
                     ),
                     const Divider(),
                     Padding(
-                      padding:
-                          const EdgeInsets.only(left: 16, top: 16, right: 8),
+                      padding: const EdgeInsets.only(left: 16, top: 16, right: 8),
                       child: Row(
                         children: [
-                          const Text('Time',
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.w600)),
+                          const Text('Time', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
                           const Spacer(),
                           CupertinoSwitch(
                               value: _timeOn,
@@ -198,24 +181,14 @@ class _OmniDateTimePickerState extends State<OmniDateTimePicker>
                         ],
                       ),
                     ),
-                    widget.type == EnoteDateTimePickerType.dateAndTime &&
-                            _timeOn
+                    widget.type == EnoteDateTimePickerType.dateAndTime && _timeOn
                         ? Padding(
                             padding: const EdgeInsets.only(bottom: 16.0),
                             child: TimePickerSpinner(
                               is24HourMode: widget.is24HourMode ?? true,
                               isShowSeconds: widget.isShowSeconds ?? false,
-                              normalTextStyle: widget.timeSpinnerTextStyle ??
-                                  TextStyle(
-                                      fontSize: 18,
-                                      color: widget.calendarTextColor ??
-                                          Colors.black54),
-                              highlightedTextStyle:
-                                  widget.timeSpinnerHighlightedTextStyle ??
-                                      TextStyle(
-                                          fontSize: 24,
-                                          color: widget.calendarTextColor ??
-                                              Colors.black),
+                              normalTextStyle: widget.timeSpinnerTextStyle ?? TextStyle(fontSize: 18, color: widget.calendarTextColor ?? Colors.black54),
+                              highlightedTextStyle: widget.timeSpinnerHighlightedTextStyle ?? TextStyle(fontSize: 24, color: widget.calendarTextColor ?? Colors.black),
                               time: startDateTime,
                               onTimeChange: (dateTime) {
                                 DateTime tempStartDateTime = DateTime(
@@ -238,66 +211,73 @@ class _OmniDateTimePickerState extends State<OmniDateTimePicker>
               ),
 
               /// Cancel button
-              // Container(
-              //   decoration: BoxDecoration(
-              //     color: widget.backgroundColor ?? Colors.white,
-              //     borderRadius: BorderRadius.only(
-              //       bottomLeft:
-              //           widget.borderRadius ?? const Radius.circular(16),
-              //       bottomRight:
-              //           widget.borderRadius ?? const Radius.circular(16),
-              //     ),
-              //   ),
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //     mainAxisSize: MainAxisSize.max,
-              //     children: [
-              //       Expanded(
-              //         child: TextButton(
-              //           style: ButtonStyle(
-              //             backgroundColor:
-              //                 MaterialStateProperty.all(widget.backgroundColor),
-              //           ),
-              //           onPressed: () {
-              //             Navigator.of(context).pop<DateTime>();
-              //           },
-              //           child: Text(
-              //             // "Cancel",
-              //             _localizations.cancelButtonLabel,
-              //             style: TextStyle(
-              //                 color: widget.buttonTextColor ?? Colors.black),
-              //           ),
-              //         ),
-              //       ),
-              //       const SizedBox(
-              //         height: 20,
-              //         child: VerticalDivider(
-              //           color: Colors.grey,
-              //         ),
-              //       ),
-              //       Expanded(
-              //         child: TextButton(
-              //           style: ButtonStyle(
-              //             backgroundColor:
-              //                 MaterialStateProperty.all(widget.backgroundColor),
-              //           ),
-              //           onPressed: () {
-              //             Navigator.pop<DateTime>(
-              //               context,
-              //               startDateTime,
-              //             );
-              //           },
-              //           child: Text(
-              //             // "Save",
-              //             _localizations.saveButtonLabel,
-              //             style: TextStyle(
-              //                 color: widget.buttonTextColor ?? Colors.black),
-              //           ),
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
+              ///
+
+              Container(
+                decoration: BoxDecoration(
+                  color: widget.backgroundColor ?? Colors.white,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: widget.borderRadius ?? const Radius.circular(16),
+                    bottomRight: widget.borderRadius ?? const Radius.circular(16),
+                  ),
+                ),
+                child: Column(
+                  children: [
+                    const Divider(height: 0.0, endIndent: 16, indent: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          child: TextButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(widget.backgroundColor),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pop<DateTime>();
+                            },
+                            child: Text(
+                              "Cancel",
+                              style: TextStyle(color: widget.buttonTextColor ?? Theme.of(context).primaryColor),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 32,
+                          child: VerticalDivider(
+                            width: 0.0,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        Expanded(
+                          child: TextButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(widget.backgroundColor),
+                            ),
+                            onPressed: () {
+                              if (widget.onValueChange != null) {
+                                widget.onValueChange!(startDateTime);
+                              }
+                              Navigator.pop<DateTime>(
+                                context,
+                                startDateTime,
+                              );
+                            },
+                            child: Text(
+                              // "Save",
+                              _localizations.keyboardKeySelect,
+                              style: TextStyle(
+                                color: widget.buttonTextColor ?? Theme.of(context).primaryColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

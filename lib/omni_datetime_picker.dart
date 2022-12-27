@@ -33,6 +33,7 @@ Future<DateTime?> showEnoteDateTimePicker({
   TextStyle? timeSpinnerHighlightedTextStyle,
   Radius? borderRadius,
   ValueChanged<DateTime>? onValueChange,
+  bool? isShowTime = false,
 }) {
   return showDialog(
     context: context,
@@ -54,6 +55,7 @@ Future<DateTime?> showEnoteDateTimePicker({
         timeSpinnerHighlightedTextStyle: timeSpinnerHighlightedTextStyle,
         borderRadius: borderRadius,
         onValueChange: onValueChange,
+        isShowTime: isShowTime,
       );
     },
   );
