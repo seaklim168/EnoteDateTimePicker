@@ -159,9 +159,9 @@ class _OmniDateTimePickerState extends State<OmniDateTimePicker> with SingleTick
                           widget.type == EnoteDateTimePickerType.date ? 0 : startDateTime.hour,
                           widget.type == EnoteDateTimePickerType.date ? 0 : startDateTime.minute,
                         );
-                        if (widget.onValueChange != null) {
-                          widget.onValueChange!(startDateTime);
-                        }
+                        // if (widget.onValueChange != null) {
+                        //   widget.onValueChange!(startDateTime);
+                        // }
                       },
                     ),
                     const Divider(),
