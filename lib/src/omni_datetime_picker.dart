@@ -66,7 +66,8 @@ class OmniDateTimePicker extends StatefulWidget {
   State<OmniDateTimePicker> createState() => _OmniDateTimePickerState();
 }
 
-class _OmniDateTimePickerState extends State<OmniDateTimePicker> with SingleTickerProviderStateMixin {
+class _OmniDateTimePickerState extends State<OmniDateTimePicker>
+    with SingleTickerProviderStateMixin {
   /// startDateTime will be returned after clicking Done
   ///
   /// Initial value: Current DateTime
@@ -118,7 +119,8 @@ class _OmniDateTimePickerState extends State<OmniDateTimePicker> with SingleTick
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height - 120),
+                constraints: BoxConstraints(
+                    maxHeight: MediaQuery.of(context).size.height - 120),
                 decoration: BoxDecoration(
                   color: widget.backgroundColor ?? Colors.white,
                   borderRadius: BorderRadius.only(
@@ -134,21 +136,33 @@ class _OmniDateTimePickerState extends State<OmniDateTimePicker> with SingleTick
                   children: [
                     CalendarDatePicker2(
                       config: CalendarDatePicker2Config(
-                        dayTextStyle: dayTextStyle,
-                        todayTextStyle: dayTextStyle.copyWith(color: Colors.blue),
-                        selectedDayTextStyle: dayTextStyle.copyWith(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 24,
-                          color: Colors.blue,
-                        ),
-                        controlsTextStyle: dayTextStyle.copyWith(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                        ),
-                        nextMonthIcon: const Icon(Icons.chevron_right, color: Colors.blue),
-                        lastMonthIcon: const Icon(Icons.chevron_left, color: Colors.blue),
-                        weekdayLabels: ['SUN', 'MON', 'TUE', 'WEN', 'THU', 'FRI', 'SAT'],
-                      ),
+                          dayTextStyle: dayTextStyle,
+                          todayTextStyle:
+                              dayTextStyle.copyWith(color: Colors.blue),
+                          selectedDayTextStyle: dayTextStyle.copyWith(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 24,
+                            color: Colors.blue,
+                          ),
+                          controlsTextStyle: dayTextStyle.copyWith(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          nextMonthIcon: const Icon(Icons.chevron_right,
+                              color: Colors.blue),
+                          lastMonthIcon: const Icon(Icons.chevron_left,
+                              color: Colors.blue),
+                          weekdayLabels: [
+                            'SUN',
+                            'MON',
+                            'TUE',
+                            'WEN',
+                            'THU',
+                            'FRI',
+                            'SAT'
+                          ],
+                          lastDate: widget.startLastDate,
+                          firstDate: widget.startFirstDate),
                       initialValue: [startDateTime],
                       onValueChanged: (dates) {
                         var dateTime = dates[0]!;
@@ -156,8 +170,12 @@ class _OmniDateTimePickerState extends State<OmniDateTimePicker> with SingleTick
                           dateTime.year,
                           dateTime.month,
                           dateTime.day,
-                          widget.type == EnoteDateTimePickerType.date ? 0 : startDateTime.hour,
-                          widget.type == EnoteDateTimePickerType.date ? 0 : startDateTime.minute,
+                          widget.type == EnoteDateTimePickerType.date
+                              ? 0
+                              : startDateTime.hour,
+                          widget.type == EnoteDateTimePickerType.date
+                              ? 0
+                              : startDateTime.minute,
                         );
                         // if (widget.onValueChange != null) {
                         //   widget.onValueChange!(startDateTime);
@@ -166,10 +184,13 @@ class _OmniDateTimePickerState extends State<OmniDateTimePicker> with SingleTick
                     ),
                     const Divider(),
                     Padding(
-                      padding: const EdgeInsets.only(left: 16, top: 16, right: 8),
+                      padding:
+                          const EdgeInsets.only(left: 16, top: 16, right: 8),
                       child: Row(
                         children: [
-                          const Text('Time', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+                          const Text('Time',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.w600)),
                           const Spacer(),
                           CupertinoSwitch(
                               value: _timeOn,
@@ -181,14 +202,24 @@ class _OmniDateTimePickerState extends State<OmniDateTimePicker> with SingleTick
                         ],
                       ),
                     ),
-                    widget.type == EnoteDateTimePickerType.dateAndTime && _timeOn
+                    widget.type == EnoteDateTimePickerType.dateAndTime &&
+                            _timeOn
                         ? Padding(
                             padding: const EdgeInsets.only(bottom: 16.0),
                             child: TimePickerSpinner(
                               is24HourMode: widget.is24HourMode ?? true,
                               isShowSeconds: widget.isShowSeconds ?? false,
-                              normalTextStyle: widget.timeSpinnerTextStyle ?? TextStyle(fontSize: 18, color: widget.calendarTextColor ?? Colors.black54),
-                              highlightedTextStyle: widget.timeSpinnerHighlightedTextStyle ?? TextStyle(fontSize: 24, color: widget.calendarTextColor ?? Colors.black),
+                              normalTextStyle: widget.timeSpinnerTextStyle ??
+                                  TextStyle(
+                                      fontSize: 18,
+                                      color: widget.calendarTextColor ??
+                                          Colors.black54),
+                              highlightedTextStyle:
+                                  widget.timeSpinnerHighlightedTextStyle ??
+                                      TextStyle(
+                                          fontSize: 24,
+                                          color: widget.calendarTextColor ??
+                                              Colors.black),
                               time: startDateTime,
                               onTimeChange: (dateTime) {
                                 DateTime tempStartDateTime = DateTime(
@@ -217,8 +248,10 @@ class _OmniDateTimePickerState extends State<OmniDateTimePicker> with SingleTick
                 decoration: BoxDecoration(
                   color: widget.backgroundColor ?? Colors.white,
                   borderRadius: BorderRadius.only(
-                    bottomLeft: widget.borderRadius ?? const Radius.circular(16),
-                    bottomRight: widget.borderRadius ?? const Radius.circular(16),
+                    bottomLeft:
+                        widget.borderRadius ?? const Radius.circular(16),
+                    bottomRight:
+                        widget.borderRadius ?? const Radius.circular(16),
                   ),
                 ),
                 child: Column(
@@ -231,14 +264,17 @@ class _OmniDateTimePickerState extends State<OmniDateTimePicker> with SingleTick
                         Expanded(
                           child: TextButton(
                             style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(widget.backgroundColor),
+                              backgroundColor: MaterialStateProperty.all(
+                                  widget.backgroundColor),
                             ),
                             onPressed: () {
                               Navigator.of(context).pop<DateTime>();
                             },
                             child: Text(
                               "Cancel",
-                              style: TextStyle(color: widget.buttonTextColor ?? Theme.of(context).primaryColor),
+                              style: TextStyle(
+                                  color: widget.buttonTextColor ??
+                                      Theme.of(context).primaryColor),
                             ),
                           ),
                         ),
@@ -252,7 +288,8 @@ class _OmniDateTimePickerState extends State<OmniDateTimePicker> with SingleTick
                         Expanded(
                           child: TextButton(
                             style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(widget.backgroundColor),
+                              backgroundColor: MaterialStateProperty.all(
+                                  widget.backgroundColor),
                             ),
                             onPressed: () {
                               if (widget.onValueChange != null) {
@@ -267,7 +304,8 @@ class _OmniDateTimePickerState extends State<OmniDateTimePicker> with SingleTick
                               // "Save",
                               _localizations.keyboardKeySelect,
                               style: TextStyle(
-                                color: widget.buttonTextColor ?? Theme.of(context).primaryColor,
+                                color: widget.buttonTextColor ??
+                                    Theme.of(context).primaryColor,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
