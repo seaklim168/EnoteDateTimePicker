@@ -99,6 +99,9 @@ class _OmniDateTimePickerState extends State<OmniDateTimePicker>
   @override
   Widget build(BuildContext context) {
     return Dialog(
+      insetPadding: MediaQuery.of(context).size.width < 500
+          ? const EdgeInsets.all(8)
+          : null,
       backgroundColor: Colors.transparent,
       alignment: Alignment.center,
       child: Theme(
@@ -114,22 +117,22 @@ class _OmniDateTimePickerState extends State<OmniDateTimePicker>
             ),
           ),
         ),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                constraints: BoxConstraints(
-                    maxHeight: MediaQuery.of(context).size.height - 120),
-                decoration: BoxDecoration(
-                  color: widget.backgroundColor ?? Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: widget.borderRadius ?? const Radius.circular(16),
-                    topRight: widget.borderRadius ?? const Radius.circular(16),
-                    // bottomLeft: widget.borderRadius ?? const Radius.circular(16),
-                    // bottomRight: widget.borderRadius ?? const Radius.circular(16),
-                  ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              constraints: BoxConstraints(
+                  maxHeight: MediaQuery.of(context).size.height - 120),
+              decoration: BoxDecoration(
+                color: widget.backgroundColor ?? Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: widget.borderRadius ?? const Radius.circular(16),
+                  topRight: widget.borderRadius ?? const Radius.circular(16),
+                  // bottomLeft: widget.borderRadius ?? const Radius.circular(16),
+                  // bottomRight: widget.borderRadius ?? const Radius.circular(16),
                 ),
+              ),
+              child: SingleChildScrollView(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -145,7 +148,7 @@ class _OmniDateTimePickerState extends State<OmniDateTimePicker>
                             color: Colors.blue,
                           ),
                           controlsTextStyle: dayTextStyle.copyWith(
-                            fontSize: 18,
+                            fontSize: 20,
                             fontWeight: FontWeight.w600,
                           ),
                           nextMonthIcon: const Icon(Icons.chevron_right,
@@ -240,84 +243,82 @@ class _OmniDateTimePickerState extends State<OmniDateTimePicker>
                   ],
                 ),
               ),
+            ),
 
-              /// Cancel button
-              ///
+            /// Cancel button
+            ///
 
-              Container(
-                decoration: BoxDecoration(
-                  color: widget.backgroundColor ?? Colors.white,
-                  borderRadius: BorderRadius.only(
-                    bottomLeft:
-                        widget.borderRadius ?? const Radius.circular(16),
-                    bottomRight:
-                        widget.borderRadius ?? const Radius.circular(16),
-                  ),
-                ),
-                child: Column(
-                  children: [
-                    const Divider(height: 0.0, endIndent: 16, indent: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Expanded(
-                          child: TextButton(
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(
-                                  widget.backgroundColor),
-                            ),
-                            onPressed: () {
-                              Navigator.of(context).pop<DateTime>();
-                            },
-                            child: Text(
-                              "Cancel",
-                              style: TextStyle(
-                                  color: widget.buttonTextColor ??
-                                      Theme.of(context).primaryColor),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 32,
-                          child: VerticalDivider(
-                            width: 0.0,
-                            color: Colors.grey,
-                          ),
-                        ),
-                        Expanded(
-                          child: TextButton(
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(
-                                  widget.backgroundColor),
-                            ),
-                            onPressed: () {
-                              if (widget.onValueChange != null) {
-                                widget.onValueChange!(startDateTime);
-                              }
-                              Navigator.pop<DateTime>(
-                                context,
-                                startDateTime,
-                              );
-                            },
-                            child: Text(
-                              // "Save",
-                              _localizations.keyboardKeySelect,
-                              style: TextStyle(
-                                color: widget.buttonTextColor ??
-                                    Theme.of(context).primaryColor,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+            Container(
+              decoration: BoxDecoration(
+                color: widget.backgroundColor ?? Colors.white,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: widget.borderRadius ?? const Radius.circular(16),
+                  bottomRight: widget.borderRadius ?? const Radius.circular(16),
                 ),
               ),
-            ],
-          ),
+              child: Column(
+                children: [
+                  const Divider(height: 0.0, endIndent: 16, indent: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        child: TextButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                widget.backgroundColor),
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pop<DateTime>();
+                          },
+                          child: Text(
+                            "Cancel",
+                            style: TextStyle(
+                                color: widget.buttonTextColor ??
+                                    Theme.of(context).primaryColor),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 32,
+                        child: VerticalDivider(
+                          width: 0.0,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      Expanded(
+                        child: TextButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                widget.backgroundColor),
+                          ),
+                          onPressed: () {
+                            if (widget.onValueChange != null) {
+                              widget.onValueChange!(startDateTime);
+                            }
+                            Navigator.pop<DateTime>(
+                              context,
+                              startDateTime,
+                            );
+                          },
+                          child: Text(
+                            // "Save",
+                            _localizations.keyboardKeySelect,
+                            style: TextStyle(
+                              color: widget.buttonTextColor ??
+                                  Theme.of(context).primaryColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
