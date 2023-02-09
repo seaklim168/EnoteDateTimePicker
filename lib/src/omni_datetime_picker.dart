@@ -98,10 +98,11 @@ class _OmniDateTimePickerState extends State<OmniDateTimePicker>
 
   @override
   Widget build(BuildContext context) {
+    print(MediaQuery.of(context).size.width);
     return Dialog(
-      insetPadding: MediaQuery.of(context).size.width < 500
+      insetPadding: MediaQuery.of(context).size.width < 400
           ? const EdgeInsets.all(8)
-          : null,
+          : const EdgeInsets.symmetric(horizontal: 40.0, vertical: 24.0),
       backgroundColor: Colors.transparent,
       alignment: Alignment.center,
       child: Theme(
@@ -185,26 +186,27 @@ class _OmniDateTimePickerState extends State<OmniDateTimePicker>
                         // }
                       },
                     ),
-                    const Divider(),
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(left: 16, top: 16, right: 8),
-                      child: Row(
-                        children: [
-                          const Text('Time',
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.w600)),
-                          const Spacer(),
-                          CupertinoSwitch(
-                              value: _timeOn,
-                              onChanged: (value) {
-                                setState(() {
-                                  _timeOn = value;
-                                });
-                              })
-                        ],
+                    if (widget.isShowTime!) const Divider(),
+                    if (widget.isShowTime!)
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(left: 16, top: 16, right: 8),
+                        child: Row(
+                          children: [
+                            const Text('Time',
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.w600)),
+                            const Spacer(),
+                            CupertinoSwitch(
+                                value: _timeOn,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _timeOn = value;
+                                  });
+                                })
+                          ],
+                        ),
                       ),
-                    ),
                     widget.type == EnoteDateTimePickerType.dateAndTime &&
                             _timeOn
                         ? Padding(
